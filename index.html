@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ariel A. Deplante - Informática</title>
+    <title>Ariel A. Deplante - Instructor de Informática</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon-color: #00f2ff; /* Color del neón */
-            --bg-red: #7d0b0b;     /* Rojo no tan intenso */
+            --neon-color: #00f2ff; 
+            --bg-page-red: #7d0b0b;     
+            --soft-red-box: #ffadad;    
         }
 
         body, html {
@@ -16,13 +17,14 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--bg-red);
+            background-color: var(--bg-page-red);
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             color: #000;
+            cursor: pointer;
         }
 
-        /* Canvas para efecto de fondo (Líneas de escaneo estilo TV antigua) */
+        /* Canvas para líneas de escaneo estilo TV antigua */
         #bgCanvas {
             position: fixed;
             top: 0;
@@ -57,24 +59,24 @@
         #main-container {
             position: relative;
             z-index: 5;
-            padding: 30px 20px;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
 
-        /* Iconos con movimiento mesurado */
+        /* Iconos animados */
         .game-icons {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .icon {
-            font-size: 4rem;
-            filter: drop-shadow(2px 2px 0px #fff);
+            font-size: 4.5rem;
+            filter: drop-shadow(3px 3px 0px #fff);
             animation: float 4s ease-in-out infinite;
         }
 
@@ -86,118 +88,144 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* Estilo de los bloques de texto */
+        /* Bloques de texto con fondo rojo suave */
         .text-block {
-            background: rgba(255, 255, 255, 0.85); /* Fondo claro para legibilidad */
-            padding: 25px;
-            border-radius: 0; /* Estilo cuadrado retro */
-            max-width: 90%;
-            margin-bottom: 25px;
-            border: 5px solid #000;
-            box-shadow: 8px 8px 0px #000;
+            background-color: var(--soft-red-box); 
+            padding: 30px;
+            border-radius: 0; 
+            max-width: 800px;
+            width: 90%;
+            margin-bottom: 30px;
+            border: 6px solid #000;
+            box-shadow: 10px 10px 0px #000;
         }
 
         h1, p {
-            margin: 0 0 15px 0;
-            line-height: 1.3;
-            /* Trazo grueso para incitar lectura */
-            -webkit-text-stroke: 1px #000; 
+            margin: 0 0 20px 0;
+            line-height: 1.5;
+            color: #000;
+            -webkit-text-stroke: 1.2px #000; 
         }
 
-        h1 { font-size: 2rem; text-transform: uppercase; }
-        p { font-size: 1.4rem; font-weight: 900; }
+        h1 { font-size: 2.2rem; text-transform: uppercase; }
+        p { font-size: 1.6rem; font-weight: 900; }
 
-        /* Botones / Vínculos */
+        /* Botones estilo Arcade */
         .btn {
             display: inline-block;
             background: #000;
             color: #fff;
-            padding: 18px 20px;
+            padding: 20px 25px;
             text-decoration: none;
-            font-size: 1.1rem;
-            border: 3px solid #00f2ff;
+            font-size: 1.2rem;
+            border: 4px solid var(--neon-color);
             margin: 10px 0;
-            box-shadow: 4px 4px 0px #00f2ff;
+            box-shadow: 6px 6px 0px var(--neon-color);
             text-transform: uppercase;
-        }
-
-        .btn:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #00f2ff;
         }
 
         .highlight {
             background: #ffff00;
-            padding: 2px 5px;
+            padding: 2px 8px;
             border: 2px solid #000;
+            -webkit-text-stroke: 0px;
         }
 
-        /* Asegurar links visibles */
-        a { color: #0000ee; word-break: break-all; }
-
+        .whatsapp-section {
+            background: #25d366;
+            color: #000;
+            padding: 15px;
+            border: 4px solid #000;
+            font-size: 1.4rem;
+            margin-top: 20px;
+            box-shadow: 10px 10px 0px #000;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Borde de Neón -->
-    <div class="neon-frame"></div>
+    <!-- Audio de Mario 8-Bit -->
+    <audio id="marioMusic" loop preload="auto">
+        <source src="https://ia800504.us.archive.org/33/items/web_audio_mario/mario.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- Fondo Canvas sutil -->
+    <div class="neon-frame"></div>
     <canvas id="bgCanvas"></canvas>
 
     <div id="main-container">
-        <!-- Iconos en movimiento -->
         <div class="game-icons">
             <div class="icon">💻</div>
-            <div class="icon">🐧</div>
+            <div class="icon">🌐</div>
             <div class="icon">🛡️</div>
         </div>
 
         <div class="text-block">
-            <h1>Hola soy Ariel A Deplante</h1>
-            <p>instructor especialista hace <span class="highlight">19 años</span> en la enseñanza de software Windows reparación y mantenimiento automatización de tareas de mantenimiento y recuperación de datos.</p>
+            <h1>Hola, soy Ariel A. Deplante</h1>
+            <p>Instructor especialista con <span class="highlight">19 años de trayectoria</span> en la enseñanza de software Windows, reparación y mantenimiento, automatización de tareas y recuperación de datos.</p>
+            <p>Además, te preparo en <strong>redes informáticas</strong>: cableado y tipos de cables, topología de redes, configuración de routers e introducción a servidores de red.</p>
         </div>
 
         <div class="text-block">
-            <p>Especialista en <strong>Linux</strong> hace 19 años te la hago fácil todo lo mismo que Windows con introducción a la programación en Python y ciberseguridad.</p>
+            <p>Asimismo, soy especialista en <strong>Linux</strong> desde hace 19 años. Te lo explico de forma sencilla: abarcamos todo lo mencionado anteriormente, sumando una introducción a la programación en <strong>Python y ciberseguridad</strong>.</p>
         </div>
 
         <div class="text-block">
-            <p>Las clases son remotas o si preferís presenciales la hora de enseñanza son <strong>5000 pesos</strong> y si decidiste entrar te dejo e link de todos los cursos interactivos para celular Android <span class="highlight">GRATIS!!!</span> :</p>
+            <p>Las clases se dictan de manera remota o, si lo prefieres, presencial. El valor de la hora de enseñanza es de <strong>5000 pesos</strong>.</p>
             
-            <a href="https://www.mediafire.com/file/7cydqucsw4y2oi5/Curso_completo_de_Inform%25C3%25A1tica_para_celular.zip/file" class="btn">DESCARGAR CURSOS GRATIS</a>
+            <p>Si decides comenzar, te facilito el enlace de acceso a todos los cursos interactivos para dispositivos Android, ¡completamente <span class="highlight">GRATIS</span>!:</p>
             
-            <p style="font-size: 1rem; margin-top: 15px;">Está comprimido lo descomprimen con esta herramienta de Android:</p>
-            <a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager" class="btn">HERRAMIENTA DESCOMPRIMIR</a>
+            <a href="https://www.mediafire.com/file/7cydqucsw4y2oi5/Curso_completo_de_Inform%25C3%25A1tica_para_celular.zip/file" class="btn">⬇️ DESCARGAR CURSOS GRATUITOS</a>
+            
+            <p style="font-size: 1.1rem; margin-top: 20px;">El archivo se encuentra comprimido; puedes descomprimirlo utilizando esta herramienta para Android:</p>
+            <a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager" class="btn">🛠️ GESTOR DE ARCHIVOS</a>
         </div>
 
-        <div class="text-block" style="margin-bottom: 60px;">
-            <p>Poner tu correo y una contraseña que vos crees con un carácter especial ejemplo: <span class="highlight">(*)</span> cuando abras cada módulo suerte y bienvenidos a esta gran aventura 👋</p>
+        <div class="text-block">
+            <p>Para ingresar, deberás registrar tu correo y una contraseña de tu elección que incluya un carácter especial (por ejemplo: <span class="highlight">Clave*</span>). Al abrir cada módulo, ¡te deseo mucha suerte y te doy la bienvenida a esta gran aventura! 👋</p>
         </div>
+
+        <div class="whatsapp-section">
+            <strong>CONTACTO DIRECTO:</strong><br>
+            📱 WhatsApp: 1127427996<br>
+            <small>(Solo mensajes y audios)</small>
+        </div>
+
+        <div style="height: 60px;"></div> 
     </div>
 
     <script>
-        // Animación de fondo sutil con Canvas
+        const audio = document.getElementById('marioMusic');
+        audio.volume = 0.3;
+
+        // Inicia música al primer movimiento o clic (por restricción de navegadores)
+        const initAudio = () => {
+            audio.play().catch(() => {});
+            document.removeEventListener('click', initAudio);
+            document.removeEventListener('touchstart', initAudio);
+            document.removeEventListener('scroll', initAudio);
+        };
+        document.addEventListener('click', initAudio);
+        document.addEventListener('touchstart', initAudio);
+        document.addEventListener('scroll', initAudio);
+
+        // Canvas: Efecto Scanlines
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
-
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-
         window.addEventListener('resize', resize);
         resize();
 
         function drawScanlines() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
             for (let i = 0; i < canvas.height; i += 4) {
-                ctx.fillRect(0, i, canvas.width, 1);
+                ctx.fillRect(0, i, canvas.width, 1.5);
             }
             requestAnimationFrame(drawScanlines);
         }
-
         drawScanlines();
     </script>
 </body>
