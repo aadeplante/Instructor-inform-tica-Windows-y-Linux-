@@ -1,40 +1,47 @@
---- START OF FILE index.html ---
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ariel A. Deplante - Especialista en Informática</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #1a0202;         /* Rojo profundo (Seguridad) */
-            --box-bg: #f5e6e6;          /* Rojo hueso (Claridad visual) */
-            --accent-gold: #d4af37;     /* Dorado (Prestigio) */
-            --text-main: #000000;
+            --primary-cyan: #00f2ff;
+            --bg-dark: #020205;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-white: #f0f0f0;
         }
+
+        * { box-sizing: border-box; }
 
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
-            background-color: var(--bg-deep);
+            background-color: var(--bg-dark);
+            color: var(--text-white);
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Canvas: Red Neuronal Cognitiva */
-        #neuralCanvas {
+        /* Fondo de Píxeles dinámicos */
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            opacity: 0.4;
+            z-index: -1;
+            background: #000;
+        }
+
+        #pixelCanvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
 
         #main-content {
@@ -43,206 +50,221 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 15px;
+            padding: 60px 20px;
+            max-width: 850px;
+            margin: 0 auto;
         }
 
-        /* Bloques de Texto */
-        .block {
-            background-color: var(--box-bg);
-            width: 95%;
-            max-width: 700px;
-            padding: 35px;
-            margin-bottom: 40px;
-            border-left: 8px solid var(--accent-gold);
-            box-shadow: 15px 15px 0px rgba(0,0,0,0.5);
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 45px;
+            margin-bottom: 35px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
-        h1, p {
-            margin: 0 0 20px 0;
-            line-height: 1.4;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-            -webkit-text-stroke: 1px #000;
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0 0 25px 0;
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
+            text-align: center;
         }
 
-        h1 { font-size: 2.2rem; text-transform: uppercase; border-bottom: 4px solid #000; display: inline-block; }
-        p { font-size: 1.6rem; font-weight: 900; }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            font-weight: 400;
+            color: #d1d1d1;
+            margin-bottom: 22px;
+        }
 
         .highlight {
-            background: #ffff00;
-            padding: 2px 10px;
-            box-shadow: 3px 3px 0px #000;
-            -webkit-text-stroke: 0px;
+            color: var(--primary-cyan);
+            font-weight: 700;
         }
 
         /* Botones */
-        .btn-action {
-            display: block;
-            background: #000;
-            color: #fff;
-            text-align: center;
-            padding: 22px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            margin: 15px 0;
-            border: 3px solid var(--accent-gold);
-            box-shadow: 0px 8px 15px rgba(0,0,0,0.3);
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        /* MODIFICACIÓN: Botón de WhatsApp Redondeado */
-        .btn-whatsapp {
-            background: #25d366;
-            color: #000;
-            border: 3px solid #000;
-            border-radius: 50px; /* Borde totalmente redondeado */
+        .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            transition: transform 0.2s;
-        }
-
-        .btn-whatsapp:active { transform: scale(0.95); }
-
-        /* Botón de Instagram */
-        .btn-instagram {
-            background: #f09433;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: #fff;
-            border: 2px solid #fff;
-            border-radius: 15px;
+            gap: 12px;
+            padding: 18px 30px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 700;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            width: 100%;
         }
 
-        .icon-float {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px var(--accent-gold));
-            animation: pulse 3s infinite ease-in-out;
+        .btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .btn-primary {
+            background: linear-gradient(90deg, #00f2ff, #0077ff);
+            color: #000;
         }
 
-        small { font-size: 1rem; color: #444; display: block; margin-top: 10px; font-weight: 900; }
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+        }
+
+        .btn-whatsapp { 
+            background: #25d366; 
+            color: #fff; 
+            border-radius: 50px;
+        }
+
+        .btn-instagram { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+            color: #fff; 
+            border-radius: 50px;
+        }
+
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+        .icon-header { font-size: 5rem; margin-bottom: 20px; }
+
+        .footer-note {
+            text-align: center;
+            color: #555;
+            margin-top: 25px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .glass-card { padding: 30px 20px; }
+        }
     </style>
 </head>
 <body onclick="startExp()">
 
-    <canvas id="neuralCanvas"></canvas>
+    <div id="canvas-container">
+        <canvas id="pixelCanvas"></canvas>
+    </div>
 
-    <!-- Audio de Mario 8-Bit -->
     <audio id="marioMusic" loop>
         <source src="https://ia800504.us.archive.org/33/items/web_audio_mario/mario.mp3" type="audio/mpeg">
     </audio>
 
     <div id="main-content">
-        <div class="icon-float">👨‍🏫💻</div>
+        <div class="icon-header">🚀</div>
 
-        <div class="block">
-            <h1>Hola, soy Ariel A. Deplante</h1>
+        <div class="glass-card">
+            <h1>Ariel A. Deplante</h1>
             <p>Instructor especialista con <span class="highlight">19 años de trayectoria</span> comprobada en la enseñanza de software Windows, reparación y mantenimiento, automatización de tareas y recuperación de datos.</p>
             <p>Además, te brindo formación experta en <strong>Redes Informáticas</strong>: desde el cableado físico y topologías, hasta la configuración avanzada de routers e introducción a servidores de red.</p>
         </div>
 
-        <div class="block">
+        <div class="glass-card">
             <p>Como especialista en <strong>Linux</strong> con 19 años de experiencia, transformo lo complejo en simple: dominaremos el sistema bajo la misma lógica de Windows, integrando <strong>programación en Python y Ciberseguridad</strong>.</p>
         </div>
 
-        <div class="block">
-            <!-- TEXTO MODIFICADO AQUÍ -->
-            <p>Clases remotas o presenciales valor mensual <span class="highlight">a convenir</span>.</p>
+        <div class="glass-card">
+            <p style="text-align: center;">Clases remotas o presenciales.<br>
+            <span class="highlight" style="font-size: 1.6rem; border-bottom: 2px solid #00f2ff;">Precio a convenir</span></p>
             
-            <p>Accede ahora a mis cursos interactivos para Android <strong>TOTALMENTE GRATIS</strong>:</p>
+            <p style="text-align: center; margin-top: 20px;">Explora mis plataformas interactivas:</p>
             
-            <a href="https://www.mediafire.com/file/7cydqucsw4y2oi5/Curso_completo_de_Inform%25C3%25A1tica_para_celular.zip/file" class="btn-action">⬇️ DESCARGAR CURSOS GRATIS</a>
-            
-            <p><small>Usa este gestor para descomprimir en Android:</small></p>
-            <a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager" class="btn-action" style="background:#444; border-radius: 10px;">🛠️ GESTOR DE ARCHIVOS</a>
+            <!-- Botón: Curso CMD -->
+            <a href="https://aadeplante.github.io/CMD/" class="btn btn-primary">
+                💻 Curso Interactivo CMD
+            </a>
+
+            <!-- Botón NUEVO: Comandos Linux -->
+            <a href="https://aadeplante.github.io/Comandos-Linux/" class="btn btn-outline">
+                <svg viewBox="0 0 24 24"><path d="M20,19V7H4V19H20M20,3A2,2 0 0,1 22,5V19A2,2 0 0,1 20,21H4A2,2 0 0,1 2,19V5C2,3.89 2.9,3 4,3H20M13,17V15H18V17H13M9.58,13L5.57,9H8.4L11.7,12.3C12.09,12.69 12.09,13.33 11.7,13.72L8.42,17H5.59L9.58,13Z" /></svg>
+                🐧 Comandos Linux
+            </a>
         </div>
 
-        <div class="block">
+        <div class="glass-card">
             <p><strong>ACCESO:</strong> Registra tu correo y una contraseña con carácter especial (ejemplo: <span class="highlight">Clave*2024</span>). ¡Bienvenido a esta aventura tecnológica! 👋</p>
         </div>
 
-        <!-- SECCIÓN DE CONTACTO Y REDES -->
-        
-        <!-- Botón de WhatsApp Redondeado -->
-        <a href="https://wa.me/5491127427996?text=Hola%20Ariel,%20vi%20tu%20página%20y%20quiero%20información" class="btn-action btn-whatsapp">
-            <span>WHATSAPP: 1127427996</span>
-        </a>
+        <!-- CONTACTO -->
+        <div style="width: 100%;">
+            <a href="https://wa.me/5491127427996?text=Hola%20Ariel,%20vi%20tu%20página%20y%20quiero%20información" class="btn btn-whatsapp">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                WhatsApp
+            </a>
 
-        <!-- Enlace de Instagram debajo -->
-        <a href="https://www.instagram.com/reel/DV3wrC1DVyB/?igsh=MXQ1MzVubWY5dnNhYQ==" class="btn-action btn-instagram">
-            <span>VER EN INSTAGRAM 📸</span>
-        </a>
+            <a href="https://www.instagram.com/reel/DV3wrC1DVyB/?igsh=MXQ1MzVubWY5dnNhYQ==" class="btn btn-instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+            </a>
+            
+            <p class="footer-note">(Solo mensajes y audios)</p>
+        </div>
 
-        <p style="color: #fff; font-size: 0.9rem; margin-top: 10px;">(Solo mensajes y audios)</p>
-
-        <div style="height: 80px;"></div>
+        <div style="height: 60px;"></div>
     </div>
 
     <script>
-        // Sistema de partículas Neurales
-        const canvas = document.getElementById('neuralCanvas');
+        const canvas = document.getElementById('pixelCanvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let pixels = [];
+        const pixelSize = 4;
 
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<50; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    radius: Math.random() * 2 + 1
+            pixels = [];
+            const cols = Math.floor(canvas.width / pixelSize);
+            const rows = Math.floor(canvas.height / pixelSize);
+
+            for(let i=0; i<300; i++) {
+                pixels.push({
+                    x: Math.floor(Math.random() * cols) * pixelSize,
+                    y: Math.floor(Math.random() * rows) * pixelSize,
+                    color: Math.random() > 0.85 ? '#ff0000' : '#ffffff',
+                    alpha: 0,
+                    targetAlpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
                 });
             }
         }
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#d4af37";
-            ctx.strokeStyle = "#d4af37";
-            
-            particles.forEach((p, i) => {
-                p.x += p.vx;
-                p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
-                ctx.fill();
-
-                for(let j=i+1; j<particles.length; j++) {
-                    let p2 = particles[j];
-                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if(dist < 120) {
-                        ctx.globalAlpha = 1 - (dist/120);
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                        ctx.globalAlpha = 1;
-                    }
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            pixels.forEach(p => {
+                if (Math.abs(p.alpha - p.targetAlpha) < 0.01) {
+                    p.targetAlpha = Math.random() > 0.5 ? Math.random() * 0.8 : 0;
                 }
+                if (p.alpha < p.targetAlpha) p.alpha += p.speed;
+                else p.alpha -= p.speed;
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, pixelSize - 1, pixelSize - 1);
             });
             requestAnimationFrame(animate);
         }
 
         function startExp() {
             const audio = document.getElementById('marioMusic');
-            audio.volume = 0.3;
-            audio.play();
+            if (audio.paused) {
+                audio.volume = 0.1;
+                audio.play();
+            }
         }
 
         window.addEventListener('resize', init);
