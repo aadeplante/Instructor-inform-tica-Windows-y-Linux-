@@ -140,7 +140,19 @@
 
         .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
-        .icon-header { font-size: 5rem; margin-bottom: 20px; }
+        /* Animación del Cohete */
+        .icon-header { 
+            font-size: 5rem; 
+            margin-bottom: 20px; 
+            display: inline-block;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
 
         .footer-note {
             text-align: center;
@@ -197,7 +209,7 @@
         </div>
 
         <div class="glass-card">
-            <p><strong>ACCESO:</strong> Registra tu correo y una contraseña con carácter especial (ejemplo: <span class="highlight">Clave*2024</span>). ¡Bienvenido a esta aventura tecnológica! 👋</p>
+            <p>¡Bienvenido a esta aventura tecnológica! 👋</p>
         </div>
 
         <!-- CONTACTO -->
